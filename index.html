@@ -41,6 +41,9 @@
       background-position: center;
       background-size: cover;
     }
+    .swiper-slide:first-child {
+      background-position: center top 20%;
+    }
     button {
       padding: 10px 20px;
       font-size: 1rem;
@@ -98,6 +101,91 @@
         opacity: 0;
       }
     }
+    .quiz-btn {
+      display: block;
+      width: 100%;
+      min-width: 220px;
+      max-width: 700px;         /* Aumenta a largura máxima */
+      margin: 24px auto;        /* Mais espaço entre botões */
+      padding: 32px 18px;       /* Mais altura interna */
+      font-size: 1.25rem;
+      border-radius: 14px;
+      border: none;
+      background: #fff;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.4s, color 0.4s, min-height 0.4s;
+      position: relative;
+      min-height: 30vh;         /* Ocupa ~30% da altura da tela */
+      box-shadow: 0 2px 12px #0002;
+      overflow: hidden;
+      text-align: center;
+      word-break: break-word;
+    }
+    .quiz-btn .quiz-front,
+    .quiz-btn .quiz-flip {
+      position: absolute;
+      left: 0; top: 0; width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem; /* Tamanho menor para caber mais texto */
+      padding: 0 12px;
+      box-sizing: border-box;
+      text-align: justify;
+      text-align-last: center;
+      transition: opacity 0.4s;
+      backface-visibility: hidden;
+      white-space: normal;
+      word-break: break-word;
+      opacity: 1;
+      overflow-wrap: break-word;
+      overflow: hidden;
+      max-width: 100%;
+      gap: 12px; /* Espaçamento entre título e mensagem */
+    }
+    .quiz-btn .quiz-flip {
+      color: #fff;
+      opacity: 0;
+      z-index: 3;
+      background: transparent;
+    }
+    .quiz-btn.answered .quiz-front {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .quiz-btn.answered .quiz-flip {
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+    .quiz-flip-title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+      width: 100%;
+    }
+    .quiz-flip-message {
+      font-size: 0.98rem;
+      margin-top: 0;
+      text-align: justify;
+      text-align-last: center;
+      width: 100%;
+      line-height: 1.4;
+    }
+    .quiz-btn.correct {
+      background: #4caf50 !important;
+      color: #fff !important;
+    }
+    .quiz-btn.wrong {
+      background: #e53935 !important;
+      color: #fff !important;
+    }
+    .quiz-btn.correct .quiz-flip,
+    .quiz-btn.wrong .quiz-flip {
+      color: #fff !important;
+    }
   </style>
 </head>
 <body>
@@ -110,17 +198,9 @@
   </div>
 
   <div id="main-content">
-    <iframe
-      id="spotify-player"
-      style="border-radius:12px"
-      src="https://open.spotify.com/embed/track/2plbrEY59IikOBgBGLjaoe?utm_source=generator"
-      width="100%"
-      height="80"
-      frameBorder="0"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"
-    ></iframe>
+    <!-- Substitua o player antigo por este novo div -->
+    <div id="embed-iframe" style="border-radius:12px; overflow:hidden; width:100%; height:80px;"></div>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 
     <div id="typewriter">
       Olá, meu amor. <br/><br/>
@@ -132,32 +212,22 @@
 
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1728443433557-3fc9e37b58c2?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1728443433557-3fc9e37b58c2?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1728443433557-3fc9e37b58c2?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <div class="swiper-slide" style="background-image: url('assets/Imagem1.jpg');"></div>
+        <div class="swiper-slide" style="background-image: url('assets/Imagem2.jpg');"></div>
+        <div class="swiper-slide" style="background-image: url('assets/Imagem3.jpg');"></div>
+        <div class="swiper-slide" style="background-image: url('assets/Imagem4.jpg');"></div>
+        <div class="swiper-slide" style="background-image: url('assets/Imagem5.jpg');"></div>
       </div>
     </div>
 
-    <button onclick="showQuiz()">Fazer o Quiz do Casal 💖</button>
+    <button onclick="showQuiz()" style="display:none;">Fazer o Quiz do Casal 💖</button>
   </div>
 
-  <div id="quiz">
+  <div id="quiz" style="display:none;">
     <h2>Quiz do Casal 💑</h2>
-    <div class="question">
-      <h3>1. Quem disse "eu te amo" primeiro?</h3>
-      <input type="radio" name="q1" /> Eu <br />
-      <input type="radio" name="q1" /> Você <br />
+    <div id="quiz-question-container">
+      <!-- Pergunta será inserida via JS -->
     </div>
-    <div class="question">
-      <h3>2. Qual foi nosso primeiro filme juntos?</h3>
-      <input type="text" placeholder="Digite aqui..." />
-    </div>
-    <div class="question">
-      <h3>3. Quem cozinha melhor? 😋</h3>
-      <input type="radio" name="q3" /> Eu <br />
-      <input type="radio" name="q3" /> Você <br />
-    </div>
-    <button onclick="alert('Obrigada por jogar! ❤️')">Enviar Respostas</button>
   </div>
   <div id="hearts-container"></div>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -214,11 +284,6 @@
     }
 
     function typeWriterEffect() {
-      // Forçar autoplay no Spotify
-      const spotify = document.getElementById("spotify-player");
-      const baseUrl = "https://open.spotify.com/embed/track/2plbrEY59IikOBgBGLjaoe?utm_source=generator&autoplay=1";
-      spotify.src = baseUrl;
-
       const el = document.getElementById("typewriter");
       const html = el.innerHTML;
       el.innerHTML = "";
@@ -238,16 +303,152 @@
           }
           setTimeout(typeWriter, 80);
         } else {
-          // Mostra o Swiper após terminar o texto
+          // Mostra o Swiper e o botão do quiz após terminar o texto
           document.querySelector('.mySwiper').style.display = 'block';
+          document.querySelector('button[onclick="showQuiz()"]').style.display = 'inline-block';
         }
       }
       typeWriter();
     }
 
+    // Dados do quiz
+    const quizQuestions = [
+      {
+        question: "Qual foi o nosso primeiro date?",
+        answers: [
+          {
+            text: "Karaoke",
+            correct: false,
+            message: "O Karaoke foi um dos nossos primeiros dates, foi nossa primeira vez nos beijando, porém não nosso primeiro date."
+          },
+          {
+            text: "TDC",
+            correct: true,
+            message: "Exatamente! Embora tenha sido algo de trabalho, foi nesse dia que nossa química começou a se formar e pudemos ter uma relação ainda mais profunda que nos levou até o Karaoke! Parabéns, amor. Pronta para a próxima?"
+          },
+          {
+            text: "Fazer lição da faculdade",
+            correct: false,
+            message: "Quase lá, mas nem perto kkkk. Fizemos isso diversas vezes, mas não chega nem perto de ser nosso primeiro date. Errou feio, errou rude!"
+          }
+        ]
+      },
+      {
+        question: "Qual foi o nosso primeiro musical?",
+        answers: [
+          {
+            text: "Cinderela",
+            correct: false,
+            message: "Nada a ver kkkk. Esse daqui poderia ter sido até um musical, mas a gente nem lembra que isso existe. Impossível que você tenha escolhido essa opção."
+          },
+          {
+            text: "9ª de Beethoven, após o TDC",
+            correct: false,
+            message: "Hmmmm, não é um palpite ruim, embora tenha sido um concerto, realmente, foi nossa primeira saída cultural, mas não foi nosso primeiro musical."
+          },
+          {
+            text: "Legalmente Loira",
+            correct: true,
+            message: "Exatamente! Legalmente Loira foi o nosso primeiro musical juntos, foi bastante dificil que a gente não estava ficando no momento, mas voltamos a ficar durante a peça. Parabéns, amor! Pronta para a próxima?"
+          }
+        ]
+      },
+      {
+        question: "Qual é o lugar que a gente sempre fala que vai, mas nunca vamos?",
+        answers: [
+          {
+            text: "Casa Klabin",
+            correct: true,
+            message: "Exatamente!!! A gente sempre usa isso como um date econômico e fácil de fazer, mas nunca fazemos. Eu acho até engraçado manter dessa forma. No dia que formos, a piada morrerá. Parabéns, amor. Pronta para a próxima?"
+          },
+          {
+            text: "Karaokê",
+            correct: false,
+            message: "Esse a gente realmente sempre fala que vai, mas pelo menos já fomos duas vezes. A resposta chegou muito perto."
+          },
+          {
+            text: "Bahia",
+            correct: false,
+            message: "Confesso, essa daqui estava bastante difícil. A gente fala bastante que vai para a Bahia, mas é algo 'longe'. Pense em uma resposta mais factível, que poderíamos fazer em um final de semana."
+          }
+        ]
+      },
+      {
+        question: "Qual é o presente perfeito para se dar para a sua namorada?",
+        answers: [
+          {
+            text: "Perfume",
+            correct: false,
+            message: "NUNCA! Jamais! Todos sabem que ao dar um perfume, começa um cronometro para o término do relacionamento. que acaba justamente junto com o perfume. Não é um bom presente."
+          },
+          {
+            text: "Estresse",
+            correct: true,
+            message: "He he he. Exatamente, essa é a única resposta correta. Qual seria a graça do nosso relacionamento se não tivesse um pouquinho de estresse? Você as vezes precisa desse estresse né. Parabéns, amor. Pronta para a próxima?"
+          },
+          {
+            text: "Algo feito a mão com bastante carinho",
+            correct: false,
+            message: "É uma boa opção, está claramente no top 5 melhores presentes, mas nós sabemos qual é a resposta correta, amor... Vá lá e selecione agora kkkk"
+          }
+        ]
+      }
+      // Adicione mais perguntas aqui se quiser
+    ];
+
+    let currentQuiz = 0;
+
+    function renderQuizQuestion(idx) {
+      const container = document.getElementById('quiz-question-container');
+      const q = quizQuestions[idx];
+      container.innerHTML = `
+        <h3>${q.question}</h3>
+        <div class="quiz-answers">
+          ${q.answers.map((a, i) => `
+            <button class="quiz-btn" data-idx="${i}" data-correct="${a.correct}">
+              <span class="quiz-front">${a.text}</span>
+              <span class="quiz-flip">
+                <span class="quiz-flip-title">${a.text}</span>
+                <span class="quiz-flip-message">${a.message}</span>
+              </span>
+            </button>
+          `).join('')}
+        </div>
+        <div id="quiz-next-container"></div>
+      `;
+
+      document.querySelectorAll('.quiz-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          if (btn.classList.contains('answered')) return;
+          btn.classList.add('answered');
+          const idx = parseInt(btn.dataset.idx);
+          const answer = q.answers[idx];
+          btn.classList.add(answer.correct ? 'correct' : 'wrong');
+          btn.querySelector('.quiz-front').style.opacity = '0';
+          btn.querySelector('.quiz-flip').style.opacity = '1';
+
+          if (answer.correct) {
+            if (currentQuiz < quizQuestions.length - 1) {
+              const nextDiv = document.getElementById('quiz-next-container');
+              nextDiv.innerHTML = `<button id="next-quiz-btn" style="margin-top:20px;">Próxima Pergunta</button>`;
+              document.getElementById('next-quiz-btn').onclick = () => {
+                currentQuiz++;
+                renderQuizQuestion(currentQuiz);
+              };
+            } else {
+              const nextDiv = document.getElementById('quiz-next-container');
+              nextDiv.innerHTML = `<div style="margin-top:20px;font-weight:bold;">Fim do quiz! 🥰</div>`;
+            }
+          }
+        });
+      });
+    }
+
+    // Chame renderQuizQuestion(0) ao mostrar o quiz
     function showQuiz() {
       document.getElementById("main-content").style.display = "none";
       document.getElementById("quiz").style.display = "block";
+      renderQuizQuestion(0);
     }
 
     new Swiper(".mySwiper", {
@@ -274,6 +475,17 @@
     // Cria corações em intervalos aleatórios
     setInterval(createHeart, 300);
 
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+      const element = document.getElementById('embed-iframe');
+      const options = {
+        uri: 'spotify:track:2plbrEY59IikOBgBGLjaoe', // Troque para o URI desejado
+        theme: 'white',
+        width: '100%',
+        height: 80
+      };
+      const callback = (EmbedController) => {};
+      IFrameAPI.createController(element, options, callback);
+    };
   </script>
 </body>
 </html>
