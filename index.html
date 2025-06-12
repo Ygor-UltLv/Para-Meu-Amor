@@ -8,11 +8,12 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
   />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #d6eaff; /* Azul iPhone 15 ainda mais claro */
+      font-family: 'Josefin Sans', 'Segoe UI', sans-serif;
+      background-color: #d6eaff;
       color: #333;
       text-align: center;
       overflow-x: hidden;
@@ -40,9 +41,6 @@
     .swiper-slide {
       background-position: center;
       background-size: cover;
-    }
-    .swiper-slide:first-child {
-      background-position: center top 20%;
     }
     button {
       padding: 10px 20px;
@@ -105,19 +103,19 @@
       display: block;
       width: 100%;
       min-width: 220px;
-      max-width: 700px;         /* Aumenta a largura máxima */
-      margin: 24px auto;        /* Mais espaço entre botões */
-      padding: 32px 18px;       /* Mais altura interna */
-      font-size: 1.25rem;
-      border-radius: 14px;
+      max-width: 800px;         /* Aumenta ainda mais a largura máxima */
+      margin: 28px auto;        /* Mais espaço entre botões */
+      padding: 40px 20px;       /* Mais altura interna */
+      font-size: 1.35rem;       /* Texto maior */
+      border-radius: 18px;
       border: none;
       background: #fff;
       color: #333;
       cursor: pointer;
       transition: background 0.4s, color 0.4s, min-height 0.4s;
       position: relative;
-      min-height: 30vh;         /* Ocupa ~30% da altura da tela */
-      box-shadow: 0 2px 12px #0002;
+      min-height: 35vh;         /* Ocupa ~35% da altura da tela */
+      box-shadow: 0 2px 16px #0002;
       overflow: hidden;
       text-align: center;
       word-break: break-word;
@@ -185,6 +183,21 @@
     .quiz-btn.correct .quiz-flip,
     .quiz-btn.wrong .quiz-flip {
       color: #fff !important;
+    }
+    .heart-float {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 10px;
+      font-size: 2rem;
+      pointer-events: none;
+      animation: heartUp 1.2s ease-out forwards;
+      z-index: 10;
+    }
+    @keyframes heartUp {
+      0% { opacity: 1; transform: translateX(-50%) scale(1) translateY(0);}
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) scale(1.3) translateY(-80px);}
     }
   </style>
 </head>
@@ -392,11 +405,145 @@
             message: "É uma boa opção, está claramente no top 5 melhores presentes, mas nós sabemos qual é a resposta correta, amor... Vá lá e selecione agora kkkk"
           }
         ]
+      },
+      {
+        question: "Se você vê um cavalier na rua, o que deve ser feito?",
+        answers: [
+          {
+            text: "Ficar toda emocionada mas só olhar",
+            correct: false,
+            message: "Aiai... É uma boa resposta, mas não a correta. Não é a pior, mas você consegue mais que isso!"
+          },
+          {
+            text: "Fingir que nem viu, pois é um cachorro qualquer",
+            correct: false,
+            message: "Patético, não é possível que você vai ver um cavalier e vai só fingir que não viu."
+          },
+          {
+            text: "Ir fazer carinho nele imediatamente!",
+            correct: true,
+            message: "Exatamente! Você deve sempre fazer carinho em um cavalier quando vê um. Isso é uma regra universal. Parabéns, amor. Pronta para a próxima?"
+          }
+        ]
+      },
+      {
+        question: "Se seu namorado esqueceu de falar que ia almoçar. Qual deve ser sua reação?",
+        answers: [
+          {
+            text: "Falar que ele não te ama mais e que vai te deixar",
+            correct: false,
+            message: "... Sério? Essa resposta mesmo? Não é possível que você pensou que fosse isso e não que ele só esqueceu de avisar.",
+          },
+          {
+            text: "Achar que é normal, afinal ele nem sempre avisa que ta comendo, mas falar que ele não te falou nada",
+            correct: true,
+            message: "Exametente essa, amor! As vezes seu namorado só não lembrou de mandar foto, já que come a mesma porcaria todo dia. Parabéns, amor. Pronta para a próxima?"
+          },
+          {
+            text: "Ignorar e não falar nada",
+            correct: false,
+            message: "Péssimo. se eu esqueci de fazer algo que faz parte dos nossos rituais, você tem que avisar e me lembrar que é importante para nossa relação."
+          }
+        ]
+      },
+      {
+        question: "Se ele diz que não vai te dar um perfume, o que será que ele tá querendo dizer com isso?",
+        answers: [
+          {
+            text: "Que ele acredita em uma superstição besta e não quer arriscar",
+            correct: true,
+            message: "Seu namorado é todo doido dessas coisas, vida. Você tem que entender que não vale o risco por conta de um perfume. Ele já te dá de tudo também. Parabéns, amor. Pronta para a próxima?",
+          },
+          {
+            text: "Que ele na verdade é um mão de vaca e não quer gastar dinheiro com você",
+            correct: false,
+            message: "Impossível que você sequer tenha cogitado essa resposta. Eu vou bem ficar quieto. Você não merece nem a mensagem de ter errado."
+          },
+          {
+            text: "Que ele não te ama o suficiente para te dar um presente tão simples",
+            correct: false,
+            message: "Fake news suprema! Você sabe que ele te ama infinito e que por te amar tanto que ele não te da um perfume."
+          }
+        ]
+      },
+      {
+        question: "Qual loja não podemos deixar de ir quando vamos ao shoppping?",
+        answers: [
+          {
+            text: "Centauro",
+            correct: true,
+            message: "A gente pode não reparar, mas sempre passamos em uma centauro, até fizemos amizade lá já. Confesso que coloquei essa como certa só para ter um pouco de discórdia kkkk, mas parabéns, amor, você acertou. Pronta para a próxima?",
+          },
+          {
+            text: "Sephora",
+            correct: false,
+            message: "Olha, confesso que essa estaria certa se o quiz fosse apenas sobre a realidade e não fosse eu colocando e querendo te estressar um pouco também. Só que nem todo shopping tem Sephora, na verdade, a maiorria não tem. Errou feio!"
+          },
+          {
+            text: "Qualquer lugar para comer",
+            correct: false,
+            message: "Essa também poderia estar certa, confesso que essa também é uma bola curva... Desculpa amor, eu precisava de um jeito de te deixar incrédula kkkk"
+          }
+        ]
+      },
+      {
+        question: "Qual o melhor para a gente ficar de amores quando estamos presencial?",
+        answers: [
+          {
+            text: "Kalunga",
+            correct: true,
+            message: "Nossa, sempre top a Kalunga, o único problema dela é que ela é bem longe. Mas fica no caminho do shopping então é perfeito para a gente aproveitar. Parabéns, amor. Pronta para a próxima?",
+          },
+          {
+            text: "Chai",
+            correct: true,
+            message: "Esse, sem dúvidas, é elite. As outras também não estão erradas erradas, mas essa sem dúvidas é a melhor escolha. Pode até ser bastante arriscado, mas já se tornou como uma casa para nós. Muito bom ficar de amores lá. Parabéns, amor. Pronta para a próxima?"
+          },
+          {
+            text: "Lugar que vende doce",
+            correct: true,
+            message: "Essa também é muito boa, mas pode ser um pouco complicado, um local muito aberto e tal. Só que é muito top para ficar de amor enquanto come um docinho top top. Parabéns, amor. Pronta para a próxima?"
+          }
+        ]
+      },{
+        question: "Por fim, para finalizarmos com chave de ouro, quem ama mais?",
+        answers: [
+          {
+            text: "Ela",
+            correct: false,
+            message: "Não seja sacana. Só porque é você respondendo não quer dizer que ta certo! Seja justa com nosso relacionamento. kkkkkk, mas se você ama mais, saiba que eu amo o dobro do que você ama.",
+          },
+          {
+            text: "Ele",
+            correct: false,
+            message: "Foi tão dificil não colocar essa como verdadeira, de verdade. Mas não, nós temos um combinado, eu não vou quebrar ele. Então, não vou dizer que sou quem ama mais. Só que eu te amo infinito!"
+          },
+          {
+            text: "Ambos",
+            correct: true,
+            message: "Isso mesmo amorrrr, eu te amo mais que tudo, viver com você é tão leve, tão gostoso, eu me sinto sempre nas nuvens quando estou contigo. Esses últimos meses foram maravilhoso de passar contigo. Teremos, com certeza, muito mais meses e anos juntos. Eu estou ansioso para viver minha vida inteira contigo. Te amo demais da conta, minha lindinha! <3 <3 <3"
+          }
+        ]
       }
-      // Adicione mais perguntas aqui se quiser
     ];
 
+    function showLovePage() {
+    document.body.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:#d6eaff;">
+        <h1 style="font-size:2.5rem;color:#ff69b4;margin-bottom:32px;">Eu te amo demais, amor.<br/></h1>
+        <p style="font-size:1.5rem;max-width:600px;color:#333;line-height:1.5;text-align:center;">
+          Espero que você tenha aproveitado esse quiz e se divertido com seus presentes.
+        </p>
+        <p style="font-size:1.5rem;max-width:600px;color:#333;line-height:1.5;text-align:center;">
+          ❤ Te amo Te amo Te amo ❤
+        </p>
+      </div>
+    `;
+  }
+    
     let currentQuiz = 0;
+
+
 
     function renderQuizQuestion(idx) {
       const container = document.getElementById('quiz-question-container');
@@ -428,6 +575,7 @@
           btn.querySelector('.quiz-flip').style.opacity = '1';
 
           if (answer.correct) {
+            showHeartsOnButton(btn);
             if (currentQuiz < quizQuestions.length - 1) {
               const nextDiv = document.getElementById('quiz-next-container');
               nextDiv.innerHTML = `<button id="next-quiz-btn" style="margin-top:20px;">Próxima Pergunta</button>`;
@@ -437,7 +585,12 @@
               };
             } else {
               const nextDiv = document.getElementById('quiz-next-container');
-              nextDiv.innerHTML = `<div style="margin-top:20px;font-weight:bold;">Fim do quiz! 🥰</div>`;
+              nextDiv.innerHTML = `
+              <button id="end-quiz-btn" style="margin-top:30px; font-size:1.5rem; padding:24px 32px; border-radius:18px; background:#ff69b4; color:#fff; border:none; cursor:pointer;">
+                Fim do Quiz! 🥰
+              </button>
+            `;
+                        document.getElementById('end-quiz-btn').onclick = showLovePage;
             }
           }
         });
@@ -486,6 +639,19 @@
       const callback = (EmbedController) => {};
       IFrameAPI.createController(element, options, callback);
     };
+
+    function showHeartsOnButton(btn) {
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'heart-float';
+        heart.textContent = '❤️';
+        heart.style.left = (20 + Math.random() * 30) + '%';
+        heart.style.fontSize = (1.5 + Math.random()) + 'rem';
+        heart.style.animationDelay = (i * 0.1) + 's';
+        btn.appendChild(heart);
+        setTimeout(() => heart.remove(), 1300);
+      }
+    }
   </script>
 </body>
 </html>
